@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apresentação Exclusiva - O método exato para alcançar seus resultados.">
+    <title>Apresentação Exclusiva</title>
+
+    <style>
+        /* ==================================================
+           RESET & ESTILOS GERAIS
+           ================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Fundo branco absoluto */
+            background-color: #ffffff;
+            color: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ==================================================
+           CABEÇALHO (COPY E ALINHAMENTO DO BADGE)
+           ================================================== */
+        .live-badge-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .live-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .badge-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            margin-right: 8px;
+            flex-shrink: 0;
+            /* Garante que a bolinha nunca amasse ou descole do formato no mobile */
+            animation: blink 1.5s infinite ease-in-out;
+        }
+
+        .live-text {
+            color: #991b1b;
+            font-size: 0.875rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            letter-spacing: -0.025em;
+            color: #111827;
+        }
+
+        @media (min-width: 640px) {
+            h1 {
+                font-size: 2.25rem;
+            }
+        }
+
+        .highlight-red {
+            color: #991b1b;
+        }
+
+        h2 {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #4b5563;
+            margin-bottom: 2.5rem;
+        }
+
+        @media (min-width: 640px) {
+            h2 {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* ==================================================
+           PLAYER DE VÍDEO VERTICAL (9:16)
+           ================================================== */
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 360px;
+            aspect-ratio: 9 / 16;
+            margin: 0 auto 2.5rem auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            background-color: #000;
+            cursor: pointer;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Overlay Inicial (Capa Play) */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: opacity 0.3s ease;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            animation: pulse-play 1.5s infinite;
+        }
+
+        .play-button svg {
+            width: 36px;
+            height: 36px;
+            fill: #ffffff;
+            margin-left: 6px;
+        }
+
+        .overlay-text {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        @keyframes pulse-play {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 15px rgba(239, 68, 68, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+
+        /* ==================================================
+           BOTÃO DE COMPRA (CTA)
+           ================================================== */
+        #cta-container {
+            display: none;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: #22c55e;
+            color: #ffffff;
+            text-decoration: none;
+            text-align: center;
+            padding: 1.25rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+            border-radius: 8px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px -1px rgba(34, 197, 94, 0.4), 0 2px 4px -1px rgba(34, 197, 94, 0.2);
+            animation: pulse-btn 2s infinite;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #16a34a;
+            transform: scale(1.02);
+        }
+
+        @keyframes pulse-btn {
+            0% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(34, 197, 94, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+            }
+        }
+
+        .security-text {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- HEADER -->
+        <div class="live-badge-container">
+            <div class="live-badge">
+                <span class="badge-dot"></span>
+                <span class="live-text">ANTES DE DESISTIR DO SEU CASAMENTO, ASSISTA ISSO</span>
+            </div>
+        </div>
+        <h1>Sua esposa não perdeu o desejo por sexo. <span class="highlight-red">Ela perdeu o desejo por você...</span>
+            e isso pode ser revertido.</h1>
+        <h2>Assista ao vídeo completo abaixo e descubra o método desenvolvido por uma psicóloga especialista em
+            relacionamentos, baseado em mais de 17 anos de experiência ajudando casamentos em crise.</h2>
+
+        <!-- PLAYER DE VÍDEO NATIVO HTML5 -->
+        <div class="video-container" id="video-wrapper">
+
+            <!-- Overlay de Início (Esconde ao clicar) -->
+            <div class="video-overlay" id="video-overlay">
+                <div class="play-button">
+                    <!-- Ícone nativo de Play (sem bibliotecas externas) -->
+                    <svg viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </div>
+                <div class="overlay-text">CLIQUE PARA ASSISTIR</div>
+            </div>
+
+            <!-- VÍDEO LOCAL PARA CARREGAMENTO IMEDIATO E SEM BLOQUEIO -->
+            <video id="vsl-video" playsinline preload="auto">
+                <source src="video.mp4" type="video/mp4">
+            </video>
+
+        </div>
+
+        <!-- CALL TO ACTION (Aparece via monitoramento inteligente de tempo) -->
+        <div id="cta-container">
+            <!-- Insira seu link de checkout no atributo href abaixo -->
+            <a href="#" class="btn">QUERO RECUPERAR O DESEJO DA MINHA ESPOSA E SALVAR MEU CASAMENTO</a>
+            <div class="security-text">
+                🔒 Compra Segura & Acesso Imediato
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ==================================================
+           CONFIGURAÇÃO DO TEMPO DE PITCH (CTA)
+           ================================================== */
+        // Configure aqui o tempo exato (em segundos) em que o botão deve aparecer.
+        // O botão só aparece quando o tempo REAL de vídeo tocando atinge esse valor.
+        // Exemplo: 194 = 3 minutos e 14 segundos
+        const tempoAparecerSegundos = 194;
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // --- VARIÁVEIS DOM ---
+            const videoWrapper = document.getElementById("video-wrapper");
+            const video = document.getElementById("vsl-video");
+            const overlay = document.getElementById("video-overlay");
+            const ctaContainer = document.getElementById("cta-container");
+
+            // --- CONTROLE DE ESTADO ---
+            let videoStarted = false;
+
+            // Função que exibe o botão suavemente
+            function exibirBotaoCta() {
+                ctaContainer.style.display = "block";
+                setTimeout(function () {
+                    ctaContainer.style.opacity = "1";
+                }, 50);
+            }
+
+            // Monitoramento Dinâmico de Tempo Real do Vídeo (timeupdate)
+            function verificarTempoDoPitch() {
+                if (video.currentTime >= tempoAparecerSegundos) {
+                    exibirBotaoCta();
+                    video.removeEventListener('timeupdate', verificarTempoDoPitch);
+                }
+            }
+
+            // Oculta a capa e aciona a vigilância inteligente de tempo
+            function esconderOverlayEEIniciarVerificacao() {
+                overlay.style.opacity = "0";
+                setTimeout(function () {
+                    overlay.style.display = "none";
+                }, 300);
+
+                video.addEventListener('timeupdate', verificarTempoDoPitch);
+            }
+
+            // --- LÓGICA DE CLIQUE NO PLAYER E TRATAMENTO DE ERRO DE PLAY ---
+            videoWrapper.addEventListener("click", function (event) {
+
+                // 1. Tratamento isolado caso o clique tenha sido no botão flutuante de "Ativar Som"
+                if (event.target.id === "aviso-som") {
+                    video.muted = false;       // Ativa o som
+                    event.target.remove();     // Remove o botão flutuante
+                    return;                    // Interrompe a execução para não pausar o vídeo acidentalmente
+                }
+
+                if (!videoStarted) {
+
+                    // Tenta iniciar com som ativado (Ação primária)
+                    video.play().then(function () {
+                        // Sucesso: rodou com som tranquilamente
+                        videoStarted = true;
+                        esconderOverlayEEIniciarVerificacao();
+                    }).catch(function (error) {
+                        // Falha: navegador Safari/Chrome bloqueou a reprodução pesada com som
+                        console.log("Navegador bloqueou áudio, tentando mutado via Fallback:", error);
+
+                        // Inicia mutado para garantir a reprodução e reter o usuário (Contingência)
+                        video.muted = true;
+                        video.play().then(function () {
+                            videoStarted = true;
+
+                            // Cria um botão visual flutuante chamativo pedindo para o usuário ativar o som
+                            const avisoSom = document.createElement("button");
+                            avisoSom.id = "aviso-som";
+                            avisoSom.innerHTML = "🔊 CLIQUE PARA ATIVAR O SOM";
+                            avisoSom.style.position = "absolute";
+                            avisoSom.style.top = "15px";
+                            avisoSom.style.left = "50%";
+                            avisoSom.style.transform = "translateX(-50%)";
+                            avisoSom.style.backgroundColor = "rgba(0,0,0,0.85)";
+                            avisoSom.style.color = "#fff";
+                            avisoSom.style.border = "none";
+                            avisoSom.style.padding = "10px 20px";
+                            avisoSom.style.borderRadius = "30px";
+                            avisoSom.style.fontSize = "13px";
+                            avisoSom.style.fontWeight = "bold";
+                            avisoSom.style.zIndex = "20";
+                            avisoSom.style.cursor = "pointer";
+                            avisoSom.style.boxShadow = "0 4px 6px rgba(0,0,0,0.4)";
+
+                            videoWrapper.appendChild(avisoSom);
+
+                            esconderOverlayEEIniciarVerificacao();
+                        }).catch(function (e) {
+                            console.log("Falha total na reprodução:", e);
+                        });
+                    });
+
+                } else {
+                    // Cliques subsequentes: Controle simples de Play/Pause na tela
+                    if (video.paused) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
